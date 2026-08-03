@@ -1,5 +1,9 @@
 # DevOps Roadmap
 
+![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-E95420?logo=ubuntu)
+![Bash](https://img.shields.io/badge/Bash-5.x-black?logo=gnubash)
+![Status](https://img.shields.io/badge/Progress-Week%201-green)
+
 A hands-on roadmap to became a Linux SysAdmin and DevOps Engineer through real-world projects.
 
 ## Objetives
@@ -14,9 +18,9 @@ Become job-ready for Linux SysAdmin / Infrastructure / Junior DevOps roles by bu
 - [X] Week 1
   - [X] Day 1 - Hello World, Shebang and Permissions
   - [X] Day 2 - Variables and Command Substitution
-  - [ ] Day 3
-  - [ ] Day 4
-  - [ ] Day 5
+  - [X] Day 3 - Environment variables and user input (read)
+  - [X] Day 4 - If Statament und Exit Codes
+  - [X] Day 5 - Script Arguments
 
 ### Phase 2 - Linux Administration
 - [ ] Users & Groups
@@ -76,10 +80,11 @@ notes/
 
 ## Learning Rules
 - Study 1 hour per day.
-- Learn by building projects.
-- Use Git every day.
+- Write every scrit manually.
 - Use Vim as the primary editor.
-- Read man page before searching online.
-- Fix problems instead of reinstaling the OS.
+- Use Git every study session. 
+- Learn by building projects.
+- Read `man` and `help` before searching online.
+- Solve problems before asking for help.
 
 
