@@ -2,11 +2,11 @@
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-E95420?logo=ubuntu)
 ![Bash](https://img.shields.io/badge/Bash-5.x-black?logo=gnubash)
-![Status](https://img.shields.io/badge/Progress-Week%201-green)
+![Status](https://img.shields.io/badge/Progress-Week%202-green)
 
-A hands-on roadmap to became a Linux SysAdmin and DevOps Engineer through real-world projects.
+A hands-on roadmap to become a Linux SysAdmin and DevOps Engineer through real-world projects.
 
-## Objetives
+## Objectives
 
 Become job-ready for Linux SysAdmin / Infrastructure / Junior DevOps roles by building practical skills and a professional GithHub portfolio.
 
@@ -19,8 +19,15 @@ Become job-ready for Linux SysAdmin / Infrastructure / Junior DevOps roles by bu
   - [X] Day 1 - Hello World, Shebang and Permissions
   - [X] Day 2 - Variables and Command Substitution
   - [X] Day 3 - Environment variables and user input (read)
-  - [X] Day 4 - If Statament und Exit Codes
+  - [X] Day 4 - If Statement und Exit Codes
   - [X] Day 5 - Script Arguments
+- [X] Week 2
+  - [X] Day 6 - Functions and Exit Codes
+  - [X] Day 7 - Loops and Parameters
+  - [X] Day 8 - While, Read and Case
+  - [x] Day 9 - Arrays
+  - [X] Day 10 - Associative Arrays
+
 
 ### Phase 2 - Linux Administration
 - [ ] Users & Groups
