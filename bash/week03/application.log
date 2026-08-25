@@ -1,0 +1,6 @@
+INFO Application started
+INFO Loading configuration
+WARNING Configuration file missing
+INFO Retrying
+ERROR Connection failed
+INFO Application stopped
