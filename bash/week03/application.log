@@ -1,6 +1,8 @@
 INFO Application started
-INFO Loading configuration
-WARNING Configuration file missing
-INFO Retrying
 ERROR Connection failed
+WARNING Configuration failed
+ERROR Connection failed
+INFO Retrying
+ERROR Timeout
 INFO Application stopped
+ERROR Connection failed

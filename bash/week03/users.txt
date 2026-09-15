@@ -2,4 +2,5 @@ ernesto
 pamela
 javier
 ramon
-ernesto-admin
+ernesto
+javier
