@@ -1,0 +1,4 @@
+server01 production
+server02 production
+server03 testing
+server04 testing
