@@ -1,0 +1,6 @@
+ernesto admin active
+juan user active
+maria user inactive
+pedro admin active
+lucas user inactive
+sofia admin inactive

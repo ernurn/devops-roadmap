@@ -1,4 +1,4 @@
-server01 production
-server02 production
-server03 testing
-server04 testing
+server01 production 80
+server02 production 443
+server03 testing 8080
+server04 development 3000

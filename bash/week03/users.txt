@@ -1,6 +1,4 @@
-ernesto
-pamela
-javier
-ramon
-ernesto
-javier
+ernesto:admin:active
+pamela:user:active
+javier:user:inactive
+ramon:admin:active
