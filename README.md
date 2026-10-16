@@ -33,6 +33,10 @@ Become job-ready for Linux SysAdmin / Infrastructure / Junior DevOps roles by bu
   - [X] Day 13 - Proccesing Logs with sort and uniq
   - [X] Day 14 - sed and file Transformations
   - [X] Day 15 - awk and Data Proccesing
+- [ ] Week 4
+  - [X] Day 16 - SSH and Remote Access
+  - [X] Day 17 - Linux Processes
+  - [X] Day 18 - Linux Services and systemd
 
 
 ### Phase 2 - Linux Administration
