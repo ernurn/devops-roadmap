@@ -1,86 +1,47 @@
-Control de Permisos y Accesos en Linux
-1. Cómo interpretar rwx
-Los permisos en Linux se representan mediante una cadena de caracteres o su equivalente numérico (octal). Cada letra cumple una función específica:
+# Linux Permissions and Access Control Documentation (`Day 20`)
 
-r (Read / Lectura): Concede derecho a leer el contenido de un archivo o a listar los elementos contenidos dentro de un directorio.
+---
 
-w (Write / Escritura): Permite modificar, sobrescribir o eliminar un archivo, o bien crear, borrar y renombrar archivos dentro de un directorio.
+## 1. Interpreting `rwx` Permissions
+File and directory permissions in Linux are categorized into three core capabilities, represented by specific characters in the permission string:
+- **`r` (Read):** Grants authorization to view the contents of a file or list the filenames contained within a directory.
+- **`w` (Write):** Authorizes modification, overwriting, or truncation of file data. In the context of a directory, it allows creating, deleting, or renaming entries inside it (subject to other system controls).
+- **`x` (Execute):** Permits the kernel to run a file as an executable program or shell script. For directories, `x` acts as a traversal flag—it does not execute the directory, but rather allows users and processes to cross through it to access underlying nested paths or files.
 
-x (Execute / Ejecución): Habilita la ejecución de un archivo como un script o binario, o permite el acceso de tránsito (cd) a un directorio.
+---
 
-Equivalencia numérica (Sistema Octal):
-Cada posición se calcula sumando los valores binarios asignados: r = 4, w = 2, x = 1.
+## 2. Access Levels: Owner, Group, and Others
+Linux divides access control into three distinct tiers to balance security and collaboration:
+- **Owner (User - `u`):** Typically the creator or administrative entity responsible for the file. The owner possesses primary authority and can modify permissions without administrative elevation (`sudo`).
+- **Group (`g`):** A collection of user accounts associated with a specific project, department, or administrative boundary. This tier facilitates collaborative sharing among multiple users without opening access to the entire system.
+- **Others (`o`):** Every other user account on the system that does not fall under the owner category or the assigned group. Access for this tier should be restricted tightly to maintain system security.
 
-7 (rwx) = 4 + 2 + 1
+---
 
-5 (r-x) = 4 + 0 + 1
+## 3. Differences Between File and Directory Permissions
+While the permission characters (`rwx`) are identical in appearance, their functional impact varies fundamentally depending on the target object type:
+- **Files:** `r` reads byte content; `w` modifies byte content; `x` executes compiled binaries or interpreted scripts.
+- **Directories:** `r` enables listing catalog entries (`ls`); `w` enables modifying the directory table (creating or removing files); `x` enables traversal (accessing metadata or files inside the directory via paths). Without execution (`x`) rights on a directory, a user cannot access files inside it even if they possess explicit read rights on the files themselves.
 
-6 (rw-) = 4 + 2 + 0
+---
 
-2. Diferencia entre Propietario, Grupo y Otros
-Linux divide los permisos de cualquier objeto en tres categorías independientes:
+## 4. Modifying Permissions with `chmod`
+Permissions can be altered using two distinct syntaxes:
+- **Symbolic Mode:** Targets specific user classes (`u`, `g`, `o`, `a`) and applies operations (`+` to add, `-` to remove, `=` to set exact values). Example: `chmod u+x,g-w file.sh`.
+- **Numeric (Octal) Mode:** Uses a three-digit base-8 value representing owner, group, and others respectively, calculated from binary weights ($4$ for read, $2$ for write, $1$ for execute). Example: `chmod 640 demo.txt` assigns read/write to the owner, read-only to the group, and no permissions to others.
 
-Propietario (User / Owner): Es el usuario creador o dueño absoluto del archivo o directorio. Tiene la potestad de alterar sus permisos utilizando chmod.
+---
 
-Grupo (Group): Un conjunto de usuarios que comparten un rol o contexto en el sistema. Permite otorgar privilegios comunes a varios colaboradores sin necesidad de abrirlos a todo el mundo.
+## 5. System Verifications: `ls -l`, `stat`, and `umask`
+Through practical testing, each tool revealed specific metadata layers:
+- **`ls -l`:** Provides a quick visual summary of file types, symbolic permission strings, hard link counts, ownership, size, and modification timestamps.
+- **`stat`:** Extracts deeper filesystem details, including precise numeric UIDs/GIDs, inode numbers, access/modify/change timestamps, and explicit octal permission masks.
+- **`umask`:** Acts as a subtraction filter applied during file and directory creation, explaining why newly created files default to stricter permissions (e.g., `664` or `644`) compared to directories (`775` or `755`) by stripping execution permissions from files by default.
 
-Otros (Others / World): Cualquier usuario del sistema que no sea el propietario ni pertenezca al grupo asignado al archivo. Representa el nivel de acceso público o externo.
+---
 
-3. Diferencia entre Permisos de Archivos y Directorios
-Aunque utilicen las mismas letras (rwx), el impacto práctico cambia radicalmente según el tipo de objeto:
+## 6. Mini-Challenge: Troubleshooting Script Execution Errors
+- **The Scenario:** A custom shell script (`run-me.sh`) executed successfully when called explicitly via interpreter (`bash run-me.sh`), but failed with a "Permission denied" error when invoked directly via relative path (`./run-me.sh`).
+- **Diagnosis:** Running `ls -l run-me.sh` confirmed that the file lacked execution (`x`) permissions for the owner. 
+- **Resolution:** When calling `bash run-me.sh`, the user is merely passing the file as a text argument to the `bash` binary (which only requires read permissions). Conversely, executing `./run-me.sh` requires the Linux kernel to read the shebang (`#!/bin/bash`) and directly execute the file, which strictly mandates execute permissions (`x`). The issue was resolved by applying `chmod u+x run-me.sh`.
 
-En Archivos:
-
-r: Permite abrir y leer el archivo.
-
-w: Permite editar o vaciar el archivo.
-
-x: Permite ejecutar el archivo como programa o proceso.
-
-En Directorios:
-
-r: Permite ver la lista de nombres de archivos que contiene (ls).
-
-w: Permite crear nuevos archivos o eliminar los existentes dentro de él.
-
-x: Permite ingresar al directorio (cd) y consultar los metadatos de los archivos internos. Nota: Sin permiso de ejecución en un directorio, tener permiso de lectura sobre sus archivos internos es inútil porque no se puede alcanzar su ruta.
-
-4. Cómo cambiar permisos con chmod
-El comando chmod (change mode) modifica los permisos de acceso. Se puede usar de dos formas:
-
-A. Modo Octal (Numérico)
-Se asignan tres dígitos (propietario, grupo, otros) sumando los valores de los permisos deseados:
-
-Bash
-chmod 755 archivo.sh
-# 7 (rwx) para el usuario
-# 5 (r-x) para el grupo
-# 5 (r-x) para otros
-B. Modo Simbólico
-Se manipulan permisos específicos usando letras de categoría (u, g, o, a) y operadores (+, -, =):
-
-Bash
-# Agregar permiso de ejecución al propietario:
-chmod u+x script.sh
-
-# Quitar permisos de escritura a "otros":
-chmod o-w documento.txt
-5. Verificaciones con ls -l, stat y umask
-ls -l: Muestra una vista tabular rápida que detalla el tipo de objeto, los permisos en formato de 10 caracteres (ej. -rw-rw-r--), el número de enlaces duros, el propietario y el grupo.
-
-stat: Ofrece un diagnóstico profundo de bajo nivel. Permite visualizar los permisos exactos tanto en notación simbólica como en su valor octal exacto (ej. (0664/-rw-rw-r--)), además de las marcas de tiempo (timestamps) de acceso, modificación y cambio de inodos.
-
-umask: Controla la máscara predeterminada de restricción. Define qué permisos se restan automáticamente al crear nuevos archivos o directorios (por ejemplo, una máscara 0002 aplicada sobre la base 666 de un archivo da como resultado permisos finales 664).
-
-6. Diagnóstico y Resolución en el Mini Desafío
-Durante la práctica de laboratorio con la máscara y los permisos, el diagnóstico de un comportamiento inesperado se abordó de la siguiente manera:
-
-El Problema Detectado: Al intentar ejecutar un script o acceder a un directorio recién creado, el sistema denegó la acción arrojando un error de tipo Permission denied a pesar de que el usuario era el propietario.
-
-Cómo se Diagnosticó:
-
-Se inspeccionó el entorno ejecutando ls -l para verificar la cadena de permisos y comprobar que faltaba el bit de ejecución (x).
-
-Se consultó el estado con stat para auditar el valor octal real del archivo y constatar cómo había influido el valor activo de la umask en su nacimiento.
-
-La Solución: Una vez identificada la carencia de permisos específicos, se corrigió aplicando la directiva correspondiente mediante chmod u+x (o ajustando la máscara con umask), restaurando el acceso y la operatividad del recurso.
