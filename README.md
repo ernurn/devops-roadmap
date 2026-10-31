@@ -39,7 +39,7 @@ Become job-ready for Linux SysAdmin, Infrastructure, and Junior DevOps roles by 
 
 ### Phase 2 - Linux Administration
 
-- [ ] Week 4 - Linux Administration Fundamentals
+- [X] Week 4 - Linux Administration Fundamentals
   - [X] Day 16 - SSH and Remote Access
   - [X] Day 17 - Linux Processes
   - [X] Day 18 - Linux Services and systemd
@@ -47,8 +47,8 @@ Become job-ready for Linux SysAdmin, Infrastructure, and Junior DevOps roles by 
   - [X] Day 20 - Users, Groups and Permissions
 
 - [ ] Week 5 - Linux Administration in Practice
-  - [ ] User and Group Management
-  - [ ] File Ownership and Permissions
+  - [X] User and Group Management
+  - [X] File Ownership and Permissions
   - [ ] Service Management and systemd
   - [ ] SSH Configuration and Security
   - [ ] Cron and Scheduled Tasks
